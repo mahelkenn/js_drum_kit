@@ -63,9 +63,17 @@
   document.addEventListener("keydown", function (e) {
     for (let type of typed) {
       if (type.getAttribute("data-key") == e.keyCode) {
-        console.log(type);
-        type.classList.add("playing");
+        type.classList.toggle("playing");
+        let effects = document.querySelectorAll("*[data-key]")
+        for (let effect of effects) {
+          if (effect.getAttribute("data-key") == e.keyCode) {
+            if (effect.paused) {
+              effect.play();
+            }
+          }
+        }
       };
+      // type.classList.remove("playing");
     };
    });
 </script>
