@@ -63,12 +63,15 @@
   document.addEventListener("keydown", function (e) {
     for (let type of typed) {
       if (type.getAttribute("data-key") == e.keyCode) {
-        type.classList.toggle("playing");
+        type.classList.add("playing");
         let effects = document.querySelectorAll("*[data-key]")
         for (let effect of effects) {
           if (effect.getAttribute("data-key") == e.keyCode) {
             if (effect.paused) {
               effect.play();
+              effect.addEventListener("ended", function() {
+                type.classList.remove("playing");
+              })
             }
           }
         }
